@@ -1,0 +1,10 @@
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\bin\Debug\CodeGen.exe.config
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\bin\Debug\CodeGen.exe
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\bin\Debug\CodeGen.pdb
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.csprojAssemblyReference.cache
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.Home.resources
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.Properties.Resources.resources
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.csproj.GenerateResource.cache
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.csproj.CoreCompileInputs.cache
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.exe
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.pdb
