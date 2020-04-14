@@ -48,17 +48,66 @@ namespace CodeGen
             }
             catch (WebException ex)
             {
+                ListUpdate.Visible = false;
                 WebExceptionStatus notFound = WebExceptionStatus.ProtocolError;
                 if (ex.Status.Equals(notFound))
                 {
-                    ListUpdate.Visible = false;
                     NoTagLabel.Visible = true;
                 }
                 else
                 {
-                    NoTagLabel.Text = "Erreur...";
-                    NoTagLabel.Visible = true;
+                    ErrorLabel.Visible = true;
                 }
+            }
+        }
+
+        private void ValidateBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check all of txtbox
+                if (NameTxtBox.Text == "") { throw new Exception("Donnez un nom au projet"); }
+                if (DescriptionTxtBox.Text == "") { throw new Exception("Donnez une description au projet"); }
+                if (FolderTxtBox.Text == "") { throw new Exception("Indiquez le dossier du projet"); }
+
+                string template_link;
+                if (TechnoTxtBox.Text == "Arduino"){ template_link = "https://gitlab.com/MartDel/arduinotemplate.git"; }
+                else{ throw new Exception("Template invalide"); }
+
+                // Clone the template
+                execCmd("git clone " + template_link, FolderTxtBox.Text);
+
+                // Configure the project folder
+                execCmd("ren " + TechnoTxtBox.Text.ToLower() + "template " + NameTxtBox.Text, FolderTxtBox.Text);
+                ManageFile readme = new ManageFile(FolderTxtBox.Text + "\\" + NameTxtBox.Text + "\\README.md");
+                string readme_content = readme.ReadInFile();
+                readme_content = readme_content.Replace("<NomDuProjet>", NameTxtBox.Text);
+
+                // Optionals features
+                if (RemoteTxtBox.Text != "")
+                {
+                    Uri remote_link = new Uri(RemoteTxtBox.Text);
+                    execCmd("git remote add origin " + remote_link.AbsoluteUri, FolderTxtBox.Text + "\\" + NameTxtBox.Text);
+                    readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text + Environment.NewLine + Environment.NewLine + "**Lien du remote :** [" + NameTxtBox.Text + "](" + remote_link.AbsoluteUri + ")");
+                }
+                readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text);
+
+                readme.WriteToFile(readme_content);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void FolderBtn_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            folderDlg.ShowNewFolderButton = true;
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                FolderTxtBox.Text = folderDlg.SelectedPath;
             }
         }
 
@@ -78,6 +127,24 @@ namespace CodeGen
             {
                 return false;
             }
+        }
+
+        private string execCmd(string cmd, string cd)
+        {
+            Process process = new Process();
+            if (cd != "current")
+            {
+                process.StartInfo.WorkingDirectory = cd;
+            }
+            process.StartInfo.FileName = @"C:\Windows\System32\cmd.exe";
+            process.StartInfo.Arguments = "/c " + cmd;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+            StreamReader test = process.StandardOutput;
+            return test.ReadToEnd();
         }
 
         private Control getVersionPanel(string version, string name, string author, DateTime dte, string url)
