@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.ListUpdate = new System.Windows.Forms.FlowLayoutPanel();
+            this.NoTagLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(48, 156);
+            this.label2.Location = new System.Drawing.Point(48, 140);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(226, 34);
             this.label2.TabIndex = 5;
@@ -75,12 +76,24 @@
             this.ListUpdate.TabIndex = 6;
             this.ListUpdate.WrapContents = false;
             // 
+            // NoTagLabel
+            // 
+            this.NoTagLabel.AutoSize = true;
+            this.NoTagLabel.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold);
+            this.NoTagLabel.Location = new System.Drawing.Point(17, 203);
+            this.NoTagLabel.Name = "NoTagLabel";
+            this.NoTagLabel.Size = new System.Drawing.Size(277, 19);
+            this.NoTagLabel.TabIndex = 7;
+            this.NoTagLabel.Text = "Il n\'y a pas de tag pour l\'instant...";
+            this.NoTagLabel.Visible = false;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1282, 753);
+            this.Controls.Add(this.NoTagLabel);
             this.Controls.Add(this.ListUpdate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
@@ -106,6 +119,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel ListUpdate;
+        private System.Windows.Forms.Label NoTagLabel;
     }
 }
 
