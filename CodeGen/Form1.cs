@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeGen.Properties;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -7,6 +8,8 @@ namespace CodeGen
 {
     public partial class Home : Form
     {
+        public static Color GREEN = Color.FromArgb(74, 235, 53);
+
         public Home()
         {
             InitializeComponent();
@@ -23,6 +26,7 @@ namespace CodeGen
             // Create version label
             Label versionLabel = new Label();
             versionLabel.Text = version;
+            versionLabel.ForeColor = GREEN;
             versionLabel.Font = new Font("Century Gothic", 12, FontStyle.Bold);
             versionLabel.Dock = DockStyle.Left;
             versionLabel.AutoSize = true;
