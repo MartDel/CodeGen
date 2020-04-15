@@ -32,6 +32,19 @@ Les templates sont composés de plusieurs parties :
 
 ## Aide
 
+### Le fichier ressources **tokens.json**
+
+Un fichier json dans le dossier */res* est ignoré pour cause de confidentialité. Pour pouvoir tout de même tester et modifier l'application, il faut faire ceci :
+
+1. Créer le fichier **tokens.json** dans le dossier */res*
+2. Insérer le code ci-dessous dans le fichier :
+    {
+        "tokens": {
+            "api.github.com": <tokenGitHub>
+        },
+        "key": <key>
+    }
+
 ### Comment mettre à l'échelle l'application
 
 Dans le menu démarrer (ou dans le dossier de l'application), faire un clic droit sur l'application puis accéder aux propriétés. Ensuite aller dans l'onglet *"Compatibilé"* puis cliquer sur *"Modifier les paramètres PPP élevés"*. Enfin, cocher la case *"Remplacer le comportement de mise à l’échelle PPP élevée"* et définir la mise à l'échelle pour *"Application"*. Terminer en cliquant sur *"Appliquer"* puis *"Ok"*.
