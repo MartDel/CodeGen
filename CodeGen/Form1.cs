@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -12,11 +13,19 @@ namespace CodeGen
 {
     public partial class Home : Form
     {
-        public static Color GREEN = Color.FromArgb(74, 235, 53);
+        public static string Resources = Encoding.ASCII.GetString(Properties.Resources.resources);
+        public static Color GREEN;
+        private API github = new API(new Uri("https://api.github.com"));
 
         public Home()
         {
             InitializeComponent();
+            JObject colors = JToken.Parse(Resources).Value<JObject>("colors");
+            JObject g = colors.Value<JObject>("green");
+            int red = g.Value<int>("red");
+            int green = g.Value<int>("green");
+            int blue = g.Value<int>("blue");
+            GREEN = Color.FromArgb(red, green, blue);
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -27,16 +36,16 @@ namespace CodeGen
                 this.Close();
                 return;
             }
-
+            
             // Generate tags list
             try
             {
-                string tags_str = GetRequest("https://api.github.com/repos/MartDel/CodeGen/git/refs/tags");
+                string tags_str = github.GetRequest("repos/MartDel/CodeGen/git/refs/tags", true);
                 JToken tags = JToken.Parse(tags_str);
                 foreach (JObject tag in tags)
                 {
                     string url = tag.Value<JObject>("object").Value<string>("url");
-                    string taginfo_str = GetRequest(url);
+                    string taginfo_str = github.GetRequest(url, false);
                     JToken taginfo = JToken.Parse(taginfo_str);
                     string version = taginfo.Value<string>("tag");
                     string name = taginfo.Value<string>("message");
@@ -65,6 +74,7 @@ namespace CodeGen
                 if (ex.Status.Equals(notFound))
                 {
                     NoTagLabel.Visible = true;
+                    MessageBox.Show(ex.Message);
                 }
                 else
                 {
@@ -81,32 +91,42 @@ namespace CodeGen
                 if (NameTxtBox.Text == "") { throw new Exception("Donnez un nom au projet"); }
                 if (DescriptionTxtBox.Text == "") { throw new Exception("Donnez une description au projet"); }
                 if (FolderTxtBox.Text == "") { throw new Exception("Indiquez le dossier du projet"); }
+                else if (!Directory.Exists(FolderTxtBox.Text)) { throw new Exception("Le dossier indiqué n'éxiste pas"); }
+                if (TechnoTxtBox.Text != "Arduino") { throw new Exception("Template invalide"); }
 
-                string template_link;
-                if (TechnoTxtBox.Text == "Arduino"){ template_link = "https://gitlab.com/MartDel/arduinotemplate.git"; }
-                else{ throw new Exception("Template invalide"); }
-                string techno = TechnoTxtBox.Text;
+                Uri remote;
+                if (RemoteTxtBox.Text != "")
+                {
+                    try { remote = new Uri(RemoteTxtBox.Text); }
+                    catch (UriFormatException) { throw new Exception("L'url du remote n'est pas correct"); }
+                }
+                else { remote = null; }
+
+                Project project = new Project(NameTxtBox.Text, DescriptionTxtBox.Text, TechnoTxtBox.Text, FolderTxtBox.Text, remote);
 
                 // Create thread
                 Thread configue = new Thread(() =>
                 {
                     // Clone the template
-                    execCmd("git clone " + template_link, FolderTxtBox.Text);
+                    execCmd("git clone " + project.Template_link, project.Path);
 
                     // Configure the project folder
-                    execCmd("ren " + techno.ToLower() + "template " + NameTxtBox.Text, FolderTxtBox.Text);
-                    ManageFile readme = new ManageFile(FolderTxtBox.Text + "\\" + NameTxtBox.Text + "\\README.md");
+                    execCmd("ren " + project.Techno.ToLower() + "template " + project.Name, project.Path);
+                    execCmd("git remote remove origin", project.Full_path);
+                    ManageFile readme = new ManageFile(project.Full_path + "\\README.md");
                     string readme_content = readme.ReadInFile();
-                    readme_content = readme_content.Replace("<NomDuProjet>", NameTxtBox.Text);
+                    readme_content = readme_content.Replace("<NomDuProjet>", project.Name);
 
                     // Optionals features
-                    if (RemoteTxtBox.Text != "")
+                    if (project.Remote != null)
                     {
-                        Uri remote_link = new Uri(RemoteTxtBox.Text);
-                        execCmd("git remote add origin " + remote_link.AbsoluteUri, FolderTxtBox.Text + "\\" + NameTxtBox.Text);
-                        readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text + Environment.NewLine + Environment.NewLine + "**Lien du remote :** [" + NameTxtBox.Text + "](" + remote_link.AbsoluteUri + ")");
+                        execCmd("git remote add origin " + project.Remote.AbsoluteUri, project.Full_path);
+                        readme_content = readme_content.Replace("<InsérerDescription>", project.Description + Environment.NewLine + Environment.NewLine + "**Lien du remote :** [" + project.Name + "](" + project.Remote.AbsoluteUri + ")");
                     }
-                    readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text);
+                    else
+                    {
+                        readme_content = readme_content.Replace("<InsérerDescription>", project.Description);
+                    }
 
                     readme.WriteToFile(readme_content);
                     MessageBox.Show("Terminé!");
@@ -215,22 +235,6 @@ namespace CodeGen
             infoLabel.Location = new Point(2, 40);
             panel.Controls.Add(github_logo);
             return panel;
-        }
-
-        public string GetRequest(string url)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Timeout = 10000;
-            request.Method = "GET";
-            request.ContentType = "application/json; charset=utf-8";
-            request.Accept = "application/json";
-            request.UserAgent = "martdel";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            StreamReader reader = new StreamReader(response.GetResponseStream());
-            string result = reader.ReadToEnd();
-            response.Close();
-            reader.Close();
-            return result;
         }
     }
 }

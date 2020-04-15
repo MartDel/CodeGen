@@ -99,5 +99,25 @@ namespace CodeGen.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] resources {
+            get {
+                object obj = ResourceManager.GetObject("resources", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] tokens {
+            get {
+                object obj = ResourceManager.GetObject("tokens", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
