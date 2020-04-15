@@ -50,13 +50,11 @@ namespace CodeGen
                     Control panel = getVersionPanel(version, name, author, dte, "https://www.github.com/MartDel/CodeGen/tree/" + version);
                     ListUpdate.Controls.Add(panel);
                 }
-                int counter = 0;
-                foreach(Control control in ListUpdate.Controls)
+                for(int i = 0; i < ListUpdate.Controls.Count; i++)
                 {
-                    int current_index = ListUpdate.Controls.IndexOf(control) + counter;
                     int length = ListUpdate.Controls.Count - 1;
-                    ListUpdate.Controls.SetChildIndex(control, length - current_index);
-                    counter++;
+                    Control control = ListUpdate.Controls[0];
+                    ListUpdate.Controls.SetChildIndex(control, length - i);
                 }
             }
             catch (WebException ex)
