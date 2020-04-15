@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CodeGen
@@ -84,26 +85,36 @@ namespace CodeGen
                 string template_link;
                 if (TechnoTxtBox.Text == "Arduino"){ template_link = "https://gitlab.com/MartDel/arduinotemplate.git"; }
                 else{ throw new Exception("Template invalide"); }
+                string techno = TechnoTxtBox.Text;
 
-                // Clone the template
-                execCmd("git clone " + template_link, FolderTxtBox.Text);
-
-                // Configure the project folder
-                execCmd("ren " + TechnoTxtBox.Text.ToLower() + "template " + NameTxtBox.Text, FolderTxtBox.Text);
-                ManageFile readme = new ManageFile(FolderTxtBox.Text + "\\" + NameTxtBox.Text + "\\README.md");
-                string readme_content = readme.ReadInFile();
-                readme_content = readme_content.Replace("<NomDuProjet>", NameTxtBox.Text);
-
-                // Optionals features
-                if (RemoteTxtBox.Text != "")
+                // Create thread
+                Thread configue = new Thread(() =>
                 {
-                    Uri remote_link = new Uri(RemoteTxtBox.Text);
-                    execCmd("git remote add origin " + remote_link.AbsoluteUri, FolderTxtBox.Text + "\\" + NameTxtBox.Text);
-                    readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text + Environment.NewLine + Environment.NewLine + "**Lien du remote :** [" + NameTxtBox.Text + "](" + remote_link.AbsoluteUri + ")");
-                }
-                readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text);
+                    // Clone the template
+                    execCmd("git clone " + template_link, FolderTxtBox.Text);
 
-                readme.WriteToFile(readme_content);
+                    // Configure the project folder
+                    execCmd("ren " + techno.ToLower() + "template " + NameTxtBox.Text, FolderTxtBox.Text);
+                    ManageFile readme = new ManageFile(FolderTxtBox.Text + "\\" + NameTxtBox.Text + "\\README.md");
+                    string readme_content = readme.ReadInFile();
+                    readme_content = readme_content.Replace("<NomDuProjet>", NameTxtBox.Text);
+
+                    // Optionals features
+                    if (RemoteTxtBox.Text != "")
+                    {
+                        Uri remote_link = new Uri(RemoteTxtBox.Text);
+                        execCmd("git remote add origin " + remote_link.AbsoluteUri, FolderTxtBox.Text + "\\" + NameTxtBox.Text);
+                        readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text + Environment.NewLine + Environment.NewLine + "**Lien du remote :** [" + NameTxtBox.Text + "](" + remote_link.AbsoluteUri + ")");
+                    }
+                    readme_content = readme_content.Replace("<InsérerDescription>", DescriptionTxtBox.Text);
+
+                    readme.WriteToFile(readme_content);
+                    MessageBox.Show("Terminé!");
+                });
+
+                ValidateBtn.Visible = false;
+                LoadingGif.Visible = true;
+                configue.Start();
             }
             catch (Exception ex)
             {

@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeGen_ico.ico" />
+    <None Include="Resources\LoadingGif.gif" />
     <None Include="Resources\GitHub_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

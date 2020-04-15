@@ -49,7 +49,9 @@
             this.ValidateBtn = new System.Windows.Forms.Button();
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.LoadingGif = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadingGif)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -239,6 +241,17 @@
             this.ErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ErrorLabel.Visible = false;
             // 
+            // LoadingGif
+            // 
+            this.LoadingGif.Image = global::CodeGen.Properties.Resources.LoadingGif;
+            this.LoadingGif.Location = new System.Drawing.Point(706, 546);
+            this.LoadingGif.Name = "LoadingGif";
+            this.LoadingGif.Size = new System.Drawing.Size(183, 186);
+            this.LoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadingGif.TabIndex = 22;
+            this.LoadingGif.TabStop = false;
+            this.LoadingGif.Visible = false;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -264,6 +277,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.LoadingGif);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -274,6 +288,7 @@
             this.Text = "CodeGen | Accueil";
             this.Load += new System.EventHandler(this.Home_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadingGif)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,6 +316,7 @@
         private System.Windows.Forms.Button ValidateBtn;
         private System.Windows.Forms.Label ErrorLabel;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.PictureBox LoadingGif;
     }
 }
 
