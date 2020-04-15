@@ -34,16 +34,29 @@ namespace CodeGen
                 JToken tags = JToken.Parse(tags_str);
                 foreach (JObject tag in tags)
                 {
-                    string sha = tag.Value<JObject>("object").Value<string>("sha");
-                    string taginfo_str = GetRequest("https://api.github.com/repos/MartDel/CodeGen/git/tags/" + sha);
+                    string url = tag.Value<JObject>("object").Value<string>("url");
+                    string taginfo_str = GetRequest(url);
                     JToken taginfo = JToken.Parse(taginfo_str);
                     string version = taginfo.Value<string>("tag");
                     string name = taginfo.Value<string>("message");
+                    if(name.Length > 30)
+                    {
+                        name = name.Substring(0, 30);
+                        name = name + "...";
+                    }
                     string author = taginfo.Value<JObject>("tagger").Value<string>("name");
                     string dte_str = taginfo.Value<JObject>("tagger").Value<string>("date");
-                    DateTime dte = DateTime.ParseExact(dte_str, "MM/dd/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                    DateTime dte = DateTime.Parse(dte_str, CultureInfo.GetCultureInfo("en-US"));
                     Control panel = getVersionPanel(version, name, author, dte, "https://www.github.com/MartDel/CodeGen/tree/" + version);
                     ListUpdate.Controls.Add(panel);
+                }
+                int counter = 0;
+                foreach(Control control in ListUpdate.Controls)
+                {
+                    int current_index = ListUpdate.Controls.IndexOf(control) + counter;
+                    int length = ListUpdate.Controls.Count - 1;
+                    ListUpdate.Controls.SetChildIndex(control, length - current_index);
+                    counter++;
                 }
             }
             catch (WebException ex)
