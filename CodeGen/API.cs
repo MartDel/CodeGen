@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CodeGen
 {
-    class API
+    public class API
     {
         private JToken security = JToken.Parse(Encoding.ASCII.GetString(Properties.Resources.tokens));
         private string token;
@@ -21,10 +21,10 @@ namespace CodeGen
             string token_encode = tokens.Value<string>(name);
             string token = decode(token_encode);
             this.token = token;
-
+            
             Url = url;
         }
-
+        
         public string GetRequest(string url, bool withBaseUrl)
         {
             string final_url;

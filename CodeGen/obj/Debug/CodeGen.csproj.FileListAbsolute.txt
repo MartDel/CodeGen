@@ -11,3 +11,4 @@ C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.pdb
 C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\bin\Debug\Newtonsoft.Json.dll
 C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\bin\Debug\Newtonsoft.Json.xml
 C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.csproj.CopyComplete
+C:\Users\marti\Documents\dev\Git\CodeGen\CodeGen\obj\Debug\CodeGen.Arduino.resources

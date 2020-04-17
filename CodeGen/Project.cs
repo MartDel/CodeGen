@@ -2,7 +2,7 @@
 
 namespace CodeGen
 {
-    class Project
+    public class Project
     {
         public string Name;
         public string Description;

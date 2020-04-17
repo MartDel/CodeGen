@@ -136,4 +136,10 @@
   <data name="tokens" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tokens.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="datasheets" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\datasheets.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="libraries" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\libraries.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

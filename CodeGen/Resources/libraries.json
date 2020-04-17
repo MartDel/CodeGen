@@ -1,0 +1,14 @@
+{
+	"DHT": "https://drive.google.com/open?id=1INxxSQnTydiznuj3DY2P-Z5sbZEe3Lhd",
+	"DS3231": "https://drive.google.com/open?id=1Jda7S3zXMIY_Uy8IMGX1zbzx-AYmRwUv",
+	"HC-SR04": "https://drive.google.com/open?id=1Stk92DWT28mJ8CVzmYSWiP52OI_g_9JW",
+	"IRremote": "https://drive.google.com/open?id=1YS7uoKBnpUXs0JjUBDI32Zlo2NtS9pYD",
+	"Keypad": "https://drive.google.com/open?id=1U9fB_npA3SH5497tw1D573GOj_Dpt2DM",
+	"LedControl": "https://drive.google.com/open?id=1CHbZFjFt5v57zoRn6Izwgh4IpZH7wGRz",
+	"LiquidCrystal": "https://drive.google.com/open?id=1YIPMaUgkGHWh-9Luh9djzY1BQa24bvzS",
+	"MPU6050": "https://drive.google.com/open?id=1r25cW5j_YLDdd8wukEkyeyR400kgGkoR",
+	"pitches": "https://drive.google.com/open?id=1Z0vKRQ4ONsvpL3UhyI8RX-kk2OX4kX_R",
+	"rfid": "https://drive.google.com/open?id=131CBIDkhCTPTbMuDqPSacHs6rUnOO-gV",
+	"Servo": "https://drive.google.com/open?id=1LxFCjC4AQVO1E2lMHylSrhKhesVi3pZk",
+	"Stepper": "https://drive.google.com/open?id=1YPiAc-ztmNTuxzKaJay-oBUXR5e5iWC3"
+}

@@ -13,9 +13,11 @@ namespace CodeGen
 {
     public partial class Home : Form
     {
+        private delegate void SafeCallDelegate(string techno);
         public static string Resources = Encoding.ASCII.GetString(Properties.Resources.resources);
         public static Color GREEN;
-        private API github = new API(new Uri("https://api.github.com"));
+        public API github = new API(new Uri("https://api.github.com"));
+        public Project project;
 
         public Home()
         {
@@ -40,6 +42,7 @@ namespace CodeGen
             // Generate tags list
             try
             {
+                throw new WebException();
                 string tags_str = github.GetRequest("repos/MartDel/CodeGen/git/refs/tags", true);
                 JToken tags = JToken.Parse(tags_str);
                 foreach (JObject tag in tags)
@@ -74,7 +77,6 @@ namespace CodeGen
                 if (ex.Status.Equals(notFound))
                 {
                     NoTagLabel.Visible = true;
-                    MessageBox.Show(ex.Message);
                 }
                 else
                 {
@@ -102,10 +104,10 @@ namespace CodeGen
                 }
                 else { remote = null; }
 
-                Project project = new Project(NameTxtBox.Text, DescriptionTxtBox.Text, TechnoTxtBox.Text, FolderTxtBox.Text, remote);
+                project = new Project(NameTxtBox.Text, DescriptionTxtBox.Text, TechnoTxtBox.Text, FolderTxtBox.Text, remote);
 
                 // Create thread
-                Thread configue = new Thread(() =>
+                Thread configure = new Thread(() =>
                 {
                     // Clone the template
                     execCmd("git clone " + project.Template_link, project.Path);
@@ -130,16 +132,48 @@ namespace CodeGen
 
                     readme.WriteToFile(readme_content);
                     MessageBox.Show("Terminé!");
+                    OpenNewForm(project.Techno);
                 });
 
                 ValidateBtn.Visible = false;
                 LoadingGif.Visible = true;
-                configue.Start();
+
+                configure.Start();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void OpenNewForm(string techno)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate {
+                    OpenNewForm(techno);
+                }));
+                return;
+            }
+
+            ValidateBtn.Visible = true;
+            LoadingGif.Visible = false;
+
+            if (techno == "Arduino") {
+                Arduino form = new Arduino(project);
+                form.FormClosing += new FormClosingEventHandler(formClosing);
+                this.Hide();
+                form.Show();
+            }
+        }
+
+        private void formClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult closing = MessageBox.Show("Voulez-vous fermer le logiciel ?", "Fermer la fenêtre", MessageBoxButtons.YesNoCancel);
+            if (closing.Equals(DialogResult.Yes)) { this.Close(); }
+            else if (closing.Equals(DialogResult.No)) { this.Show(); }
+            else if (closing.Equals(DialogResult.Cancel)) { e.Cancel = true; }
+            else { e.Cancel = true; }
         }
 
         private void FolderBtn_Click(object sender, EventArgs e)
@@ -235,6 +269,21 @@ namespace CodeGen
             infoLabel.Location = new Point(2, 40);
             panel.Controls.Add(github_logo);
             return panel;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Arduino form = new Arduino(project);
+            form.FormClosing += new FormClosingEventHandler((send, args) =>
+            {
+                DialogResult closing = MessageBox.Show("Voulez-vous fermer le logiciel ?", "Fermer la fenêtre", MessageBoxButtons.YesNoCancel);
+                if (closing.Equals(DialogResult.Yes)) { this.Close(); }
+                else if (closing.Equals(DialogResult.No)) { this.Show(); }
+                else if (closing.Equals(DialogResult.Cancel)) { args.Cancel = true; }
+                else { args.Cancel = true; }
+            });
+            this.Hide();
+            form.Show();
         }
     }
 }

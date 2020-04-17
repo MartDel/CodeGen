@@ -81,12 +81,32 @@ namespace CodeGen.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] datasheets {
+            get {
+                object obj = ResourceManager.GetObject("datasheets", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap GitHub_logo {
             get {
                 object obj = ResourceManager.GetObject("GitHub_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] libraries {
+            get {
+                object obj = ResourceManager.GetObject("libraries", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
