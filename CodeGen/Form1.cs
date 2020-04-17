@@ -18,7 +18,7 @@ namespace CodeGen
         public static Color GREEN;
         public API github = new API(new Uri("https://api.github.com"));
         public Project project;
-        public Project p = new Project("Test", "duezbf", "Arduino", @"C:\Users\marti\Desktop");
+        //public Project p = new Project("Test", "duezbf", "Arduino", @"C:\Users\marti\Desktop");
 
         public Home()
         {
@@ -43,7 +43,9 @@ namespace CodeGen
             // Generate tags list
             try
             {
-                throw new WebException();
+                // If you don't want print the version list :
+                // Uncomment the following line
+                // throw new WebException();
                 string tags_str = github.GetRequest("repos/MartDel/CodeGen/git/refs/tags", true);
                 JToken tags = JToken.Parse(tags_str);
                 foreach (JObject tag in tags)
@@ -160,7 +162,7 @@ namespace CodeGen
             LoadingGif.Visible = false;
 
             if (techno == "Arduino") {
-                Arduino form = new Arduino(p);
+                Arduino form = new Arduino(project);
                 form.FormClosing += new FormClosingEventHandler(formClosing);
                 this.Hide();
                 form.Show();
@@ -288,7 +290,7 @@ namespace CodeGen
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            OpenNewForm(p.Techno);
+            //OpenNewForm(p.Techno);
         }
     }
 }

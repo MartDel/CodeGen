@@ -50,7 +50,6 @@
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.LoadingGif = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LoadingGif)).BeginInit();
             this.SuspendLayout();
@@ -254,23 +253,12 @@
             this.LoadingGif.TabStop = false;
             this.LoadingGif.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(365, 203);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1282, 753);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.ErrorLabel);
             this.Controls.Add(this.ValidateBtn);
             this.Controls.Add(this.label7);
@@ -330,7 +318,6 @@
         private System.Windows.Forms.Label ErrorLabel;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.PictureBox LoadingGif;
-        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -10,6 +11,7 @@ namespace CodeGen
     public partial class Arduino : Form
     {
         public static JToken LIB = JToken.Parse(Encoding.ASCII.GetString(Properties.Resources.libraries));
+        public static JToken DATA = JToken.Parse(Encoding.ASCII.GetString(Properties.Resources.datasheets));
         private Project project;
 
         public Arduino(Project project)
@@ -66,7 +68,7 @@ namespace CodeGen
             }
 
             string librairies = "";
-            if (Libraries.Items.Count == 0) { librairies = "Aucune librairies utilisée pour l'instant..."; }
+            if (Libraries.Items.Count == 0) { librairies = "Aucune librairie utilisée pour l'instant..."; }
             else
             {
                 foreach (string lib in Libraries.Items) { librairies += "* " + lib + Environment.NewLine; }
@@ -76,14 +78,13 @@ namespace CodeGen
             Thread dl = new Thread(() =>
             {
                 // Write on README.md
-                /*
                 ManageFile readme = new ManageFile(project.Full_path + "\\README.md");
                 string readme_content = readme.ReadInFile();
                 readme_content = readme_content.Replace("<ListeComposant>", composants);
                 readme_content = readme_content.Replace("<ListeLibrairie>", librairies);
                 readme.WriteToFile(readme_content);
-                */
 
+                // Dl all of librairies
                 Directory.CreateDirectory(project.Full_path + "\\Libraries");
                 foreach (string lib in Libraries.Items)
                 {
@@ -91,8 +92,44 @@ namespace CodeGen
                     ManageFile.DlFile(url, project.Full_path + "\\Libraries", lib + ".zip");
                 }
 
+                // Dl all of datasheets
+                Directory.CreateDirectory(project.Full_path + "\\Datasheets");
+                foreach (string data in Datasheets.Items)
+                {
+                    string url = DATA.Value<string>(data);
+                    ManageFile.DlFile(url, project.Full_path + "\\Datasheets", data + ".pdf");
+                }
+
+                Finish(OpenFolder.Checked);
             });
+
+            FinishBtn.Visible = false;
+            LoadingGif.Visible = true;
+
             dl.Start();
+        }
+
+        private void Finish(bool open_folder)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate {
+                    Finish(open_folder);
+                }));
+                return;
+            }
+
+            FinishBtn.Visible = true;
+            LoadingGif.Visible = false;
+
+            if (open_folder)
+            {
+                Process.Start(project.Full_path);
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }

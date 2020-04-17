@@ -99,7 +99,6 @@
     <None Include="Resources\datasheets.json" />
     <None Include="Resources\libraries.json" />
     <None Include="Resources\resources.json" />
-    <None Include="Resources\ressources.json" />
     <None Include="Resources\tokens.json" />
   </ItemGroup>
   <ItemGroup>
