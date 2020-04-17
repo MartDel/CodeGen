@@ -18,6 +18,7 @@ namespace CodeGen
         public static Color GREEN;
         public API github = new API(new Uri("https://api.github.com"));
         public Project project;
+        public Project p = new Project("Test", "duezbf", "Arduino", @"C:\Users\marti\Desktop");
 
         public Home()
         {
@@ -131,7 +132,6 @@ namespace CodeGen
                     }
 
                     readme.WriteToFile(readme_content);
-                    MessageBox.Show("Terminé!");
                     OpenNewForm(project.Techno);
                 });
 
@@ -160,7 +160,7 @@ namespace CodeGen
             LoadingGif.Visible = false;
 
             if (techno == "Arduino") {
-                Arduino form = new Arduino(project);
+                Arduino form = new Arduino(p);
                 form.FormClosing += new FormClosingEventHandler(formClosing);
                 this.Hide();
                 form.Show();
@@ -284,6 +284,11 @@ namespace CodeGen
             });
             this.Hide();
             form.Show();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            OpenNewForm(p.Techno);
         }
     }
 }

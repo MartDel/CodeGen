@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net;
 
 namespace CodeGen
 {
@@ -33,6 +34,12 @@ namespace CodeGen
             string r = file.ReadToEnd();
             file.Close();
             return r;
+        }
+
+        public static void DlFile(string url, string path, string name)
+        {
+            WebClient web = new WebClient();
+            web.DownloadFile(url, path + "\\" + name);
         }
     }
 }

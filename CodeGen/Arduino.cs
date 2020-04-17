@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -6,6 +9,7 @@ namespace CodeGen
 {
     public partial class Arduino : Form
     {
+        public static JToken LIB = JToken.Parse(Encoding.ASCII.GetString(Properties.Resources.libraries));
         private Project project;
 
         public Arduino(Project project)
@@ -72,13 +76,21 @@ namespace CodeGen
             Thread dl = new Thread(() =>
             {
                 // Write on README.md
-                ManageFile readme = new ManageFile(project.Full_path + "README.md");
+                /*
+                ManageFile readme = new ManageFile(project.Full_path + "\\README.md");
                 string readme_content = readme.ReadInFile();
-                readme_content.Replace("<ListeComposant>", composants);
-                readme_content.Replace("<ListeLibrairie>", librairies);
+                readme_content = readme_content.Replace("<ListeComposant>", composants);
+                readme_content = readme_content.Replace("<ListeLibrairie>", librairies);
                 readme.WriteToFile(readme_content);
+                */
 
-                MessageBox.Show(readme.ReadInFile());
+                Directory.CreateDirectory(project.Full_path + "\\Libraries");
+                foreach (string lib in Libraries.Items)
+                {
+                    string url = LIB.Value<string>(lib);
+                    ManageFile.DlFile(url, project.Full_path + "\\Libraries", lib + ".zip");
+                }
+
             });
             dl.Start();
         }
