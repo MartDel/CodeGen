@@ -39,6 +39,15 @@ namespace CodeGen
                 this.Close();
                 return;
             }
+
+            // Check if Git is installed
+            string git_version = execCmd("git --version", "current");
+            if (!git_version.Contains("version"))
+            {
+                DialogResult response = MessageBox.Show("Veuillez installer Git et lui donner la permission d'être exécuter sur l'invite de commande Windows (cmd)", "Git n'est pas installer", MessageBoxButtons.OKCancel);
+                if (response.Equals(DialogResult.OK)){ Process.Start("https://git-scm.com/downloads"); }
+                this.Close();
+            }
             
             // Generate tags list
             try
