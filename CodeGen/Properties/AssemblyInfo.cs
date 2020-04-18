@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("CodeGen")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Logiciel Windows permettant de générer des templates de projet en fonction de la technologie utilisée (NodeJS, Arduino, Java, Android, ...) et de paramètres variables selon les projets.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CodeGen")]

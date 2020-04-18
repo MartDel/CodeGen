@@ -1,4 +1,5 @@
 # CodeGen
+
 Logiciel Windows permettant de générer des templates de projet en fonction de la technologie utilisée (NodeJS, Arduino, Java, Android, ...) et de paramètres variables selon les projets.
 
 ***
@@ -38,6 +39,7 @@ Un fichier json dans le dossier */res* est ignoré pour cause de confidentialit�
 
 1. Créer le fichier **tokens.json** dans le dossier */res*
 2. Insérer le code ci-dessous dans le fichier :
+
     {
         "tokens": {
             "api.github.com": <tokenGitHub>
@@ -48,3 +50,9 @@ Un fichier json dans le dossier */res* est ignoré pour cause de confidentialit�
 ### Comment mettre à l'échelle l'application
 
 Dans le menu démarrer (ou dans le dossier de l'application), faire un clic droit sur l'application puis accéder aux propriétés. Ensuite aller dans l'onglet *"Compatibilé"* puis cliquer sur *"Modifier les paramètres PPP élevés"*. Enfin, cocher la case *"Remplacer le comportement de mise à l’échelle PPP élevée"* et définir la mise à l'échelle pour *"Application"*. Terminer en cliquant sur *"Appliquer"* puis *"Ok"*.
+
+## Infos
+
+### Licence
+
+Copyright ©  2020
