@@ -1,0 +1,3 @@
+Comment mettre à l'échelle l'application ?
+
+Dans le menu démarrer (ou dans le dossier de l'application), faire un clic droit sur l'application puis accéder aux propriétés. Ensuite aller dans l'onglet "Compatibilé" puis cliquer sur "Modifier les paramètres PPP élevés". Enfin, cocher la case "Remplacer le comportement de mise à l’échelle PPP élevée" et définir la mise à l'échelle pour "Application". Terminer en cliquant sur "Appliquer" puis "Ok".

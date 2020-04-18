@@ -1,0 +1,9 @@
+Codegen est un logiciel Windows permettant de générer des templates de projet en fonction de la technologie utilisée (NodeJS, Arduino, Java, Android, ...) et de paramètres variables selon les projets.
+
+Les templates disponibles sont :
+- Arduino
+
+Les templates sont composés de plusieurs parties :
+- Le fichier README.md contenant des variables entourées de < et de > pour les identifier. Ces variables représentent les paramètres qui seront demandés à l'utilisateur lors de la création du projet.
+- Le dossier docs contenant toutes les informations pour coder dans ce langage sans devoir apprendre de nouveau cette technologie. Pour certain template (Android Studio, C#, Java par exemple) la génération du projet entier nécessite l'utilisation d'un IDE. Le dossier docs et le fichier README.md seront donc le seul contenu du template.
+- Le reste des fichiers et dossiers dépendent du type de template dont il s'agit. Chaque cas sera développé dans le fichier README.md pour une utilisation et une compréhension rapide.

@@ -8,7 +8,7 @@ Logiciel Windows permettant de générer des templates de projet en fonction de 
 
 Les templates déjà disponibles sont :
 
-* Arduino *(en cours de dev)*
+* Arduino
 
 ## Liste des templates prochainement disponibles
 
