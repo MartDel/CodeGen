@@ -49,13 +49,14 @@ Un fichier json dans le dossier */res* est ignoré pour cause de confidentialit�
 1. Créer le fichier **tokens.json** dans le dossier */res*;
 2. Insérer le code ci-dessous dans le fichier :
 
-
-    {
-        "tokens": {
-            "api.github.com": <tokenGitHub>
-        },
-        "key": <key>
-    }
+```json
+{
+    "tokens": {
+        "api.github.com": <tokenGitHub>
+    },
+    "key": <key>
+}
+```
 
 3. Se rendre dans les *paramètre GitHub*, puis dans l'onglet *Developer settings*;
 4. Cliquer sur *Personal access tokens*, puis *Generate new token*;
@@ -67,6 +68,8 @@ Un fichier json dans le dossier */res* est ignoré pour cause de confidentialit�
 ### Comment mettre à l'échelle l'application
 
 Dans le menu démarrer (ou dans le dossier de l'application), faire un clic droit sur l'application puis accéder aux propriétés. Ensuite aller dans l'onglet *"Compatibilité"* puis cliquer sur *"Modifier les paramètres PPP élevés"*. Enfin, cocher la case *"Remplacer le comportement de mise à l’échelle PPP élevée"* et définir la mise à l'échelle pour *"Application"*. Terminer en cliquant sur *"Appliquer"* puis *"Ok"*.
+
+***
 
 ## Infos
 
