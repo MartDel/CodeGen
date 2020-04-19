@@ -75,8 +75,8 @@ Dans le menu démarrer (ou dans le dossier de l'application), faire un clic droi
 
 ### Créateur
 
-Nom : **Martin Delebecque**
-Pseudo GitHub : **MartDel**
+Nom : **Martin Delebecque**  
+Pseudo GitHub : **MartDel**  
 Age à la publication de la v1.0 : **17ans**
 
 ### Licence
